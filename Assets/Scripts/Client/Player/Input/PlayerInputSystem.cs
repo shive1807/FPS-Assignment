@@ -28,6 +28,15 @@ namespace Client.Player.Input
                 
                 playerInput.ValueRW.Move = input.Move;
 
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerInput.ValueRW.Shoot.Set();
+                    Debug.Log("Shoot !");
+                }
+                else
+                {
+                    playerInput.ValueRW.Shoot = default;
+                }
             }
         }
     }

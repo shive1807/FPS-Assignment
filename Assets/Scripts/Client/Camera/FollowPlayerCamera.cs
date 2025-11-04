@@ -34,7 +34,6 @@ namespace Client.Camera
             {
                 foundPlayer = true;
                 var pos = transform.ValueRO.Position;
-                Debug.Log($"✅ Following player at {pos}");
         
                 _mainCamera.transform.position = Vector3.Lerp(
                     _mainCamera.transform.position,
