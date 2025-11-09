@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 524121774}
   - component: {fileID: 524121775}
+  - component: {fileID: 524121776}
   m_Layer: 0
   m_Name: PrefabContainer
   m_TagString: Untagged
@@ -164,6 +165,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Champion: {fileID: 6642200000054319918, guid: 303a850f81c0c461fb59ad14f602450c, type: 3}
+--- !u!114 &524121776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524121773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689c28ebdcdb84291a2a886366fdcdc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cube: {fileID: 3335866009989235081, guid: 7d3778115f3404fba980061fb0bcf056, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
