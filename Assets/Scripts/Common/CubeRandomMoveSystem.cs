@@ -1,56 +1,58 @@
-// CubeRandomMoveSystem.cs
-
-using Common;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using Unity.NetCode;
 
-[BurstCompile]
-[WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
-public partial struct CubeRandomMoveSystem : ISystem
+namespace Common
 {
-    private Random _random;
-
-    public void OnCreate(ref SystemState state)
+    [BurstCompile]
+    [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
+    public partial struct CubeRandomMoveSystem : ISystem
     {
-        _random = new Random(0xABCDEFu); // deterministic seed
-    }
+        private Random _random;
 
-    public void OnUpdate(ref SystemState state)
-    {
-        float deltaTime = SystemAPI.Time.DeltaTime;
-        var random = _random;
-
-        foreach (var (transform, moveData) in
-                 SystemAPI.Query<RefRW<LocalTransform>, RefRW<CubeMoveData>>())
+        public void OnCreate(ref SystemState state)
         {
-            float3 currentPos = transform.ValueRO.Position;
-            float3 target = moveData.ValueRO.TargetPos;
-            float speed = moveData.ValueRO.Speed;
-
-            // If close to target, pick a new one
-            if (math.distance(currentPos, target) < 0.1f)
-            {
-                target = new float3(
-                    random.NextFloat(-2.5f, 2.5f),
-                    0f,
-                    random.NextFloat(-2.5f, 2.5f)
-                );
-                moveData.ValueRW.TargetPos = target;
-            }
-
-            // Move toward target
-            float3 dir = math.normalize(target - currentPos);
-            if (!math.any(math.isnan(dir)))
-
-            {
-                currentPos += dir * speed * deltaTime;
-                transform.ValueRW.Position = currentPos;
-            }
+            _random = new Random(0xABCDEFu);
         }
 
-        _random = random;
+        public void OnUpdate(ref SystemState state)
+        {
+            float deltaTime = SystemAPI.Time.DeltaTime;
+            var random = _random;
+
+            foreach (var (transform, moveData) in 
+                     SystemAPI.Query<RefRW<LocalTransform>, RefRW<CubeMoveData>>())
+            {
+                float3 currentPos = transform.ValueRO.Position;
+                float3 target = moveData.ValueRO.TargetPos;
+                float speed = moveData.ValueRO.Speed;
+
+                float3 toTarget = target - currentPos;
+                float dist = math.length(toTarget);
+
+                if (dist < 0.1f)
+                {
+                    target = new float3(
+                        random.NextFloat(-5f, 5f),
+                        1f,
+                        random.NextFloat(-5f, 5f)
+                    );
+                    moveData.ValueRW.TargetPos = target;
+                }
+                else
+                {
+                    if (speed * deltaTime > dist)
+                        currentPos = target;
+                    else
+                        currentPos += math.normalize(toTarget) * speed * deltaTime;
+
+                    currentPos.y = 1f;
+                    transform.ValueRW.Position = currentPos;
+                }
+            }
+
+            _random = random;
+        }
     }
 }
