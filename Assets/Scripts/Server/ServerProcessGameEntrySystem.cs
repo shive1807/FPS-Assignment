@@ -21,7 +21,7 @@ namespace Server
         public void OnUpdate(ref SystemState state)
         {
             var ecb = new EntityCommandBuffer(Allocator.Temp);
-            var championPrefab = SystemAPI.GetSingleton<MobaPrefabs>().Champion;
+            var championPrefab = SystemAPI.GetSingleton<MobaPrefabs>().ChampionPrefabEntity;
             
             foreach (var (teamRequest, requestSource, requestEntity)
                      in SystemAPI.Query<RefRW<MobaTeamRequest>, RefRW<ReceiveRpcCommandRequest>>().WithEntityAccess())

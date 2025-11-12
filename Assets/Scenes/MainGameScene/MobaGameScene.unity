@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Champion: {fileID: 6642200000054319918, guid: 303a850f81c0c461fb59ad14f602450c, type: 3}
+  Bullet: {fileID: 8102503598480109138, guid: 300754e4f5906493bace15a0c6b44bc9, type: 3}
 --- !u!114 &524121776
 MonoBehaviour:
   m_ObjectHideFlags: 0

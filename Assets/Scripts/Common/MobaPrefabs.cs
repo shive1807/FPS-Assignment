@@ -4,6 +4,7 @@ namespace Common
 {
     public struct MobaPrefabs : IComponentData
     {
-        public Entity Champion;
+        public Entity ChampionPrefabEntity;
+        public Entity BulletPrefabEntity;
     }
 }
