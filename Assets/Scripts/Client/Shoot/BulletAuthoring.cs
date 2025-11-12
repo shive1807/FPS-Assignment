@@ -12,7 +12,7 @@ namespace Client.Shoot
                 Entity entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Bullet
                 {
-                    timer = 0.5f
+                    timer = 1.5f
                 });
             }
         }
