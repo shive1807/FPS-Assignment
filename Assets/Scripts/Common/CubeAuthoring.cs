@@ -1,7 +1,9 @@
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using BoxCollider = Unity.Physics.BoxCollider;
 
 namespace Common
 {
@@ -33,6 +35,16 @@ namespace Common
                     ),
                     Speed = authoring.Speed
                 });
+                
+                // Add PhysicsCollider using BoxGeometry
+                var boxCollider = BoxCollider.Create(new BoxGeometry
+                {
+                    Center = float3.zero,
+                    Size = new float3(1f, 1f, 1f),
+                    Orientation = quaternion.identity
+                });
+
+                AddComponent(entity, new PhysicsCollider { Value = boxCollider });
             }
         }
     }

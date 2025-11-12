@@ -1,5 +1,8 @@
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Physics;
 using UnityEngine;
+using BoxCollider = Unity.Physics.SphereCollider;
 
 namespace Client.Shoot
 {
@@ -14,6 +17,14 @@ namespace Client.Shoot
                 {
                     timer = 1.5f
                 });
+                
+                var sphereCollider = BoxCollider.Create(new SphereGeometry
+                {
+                    Center = float3.zero,
+                    Radius = 0.5f // sphere radius
+                });
+
+                AddComponent(entity, new PhysicsCollider { Value = sphereCollider });
             }
         }
     }
